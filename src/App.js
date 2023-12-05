@@ -9,6 +9,8 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Footer from "./components/Footer/Footer";
 import store from "./store/store";
 import {Provider} from "react-redux";
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 
 function App() {
   return (
@@ -29,6 +31,10 @@ function App() {
             <Route path = "/cart" element = {<Cart />} />
             {/* searched products */}
             <Route path = "/search/:searchTerm" element = {<Search />} />
+            {/* Register */}
+            <Route path = "/login" element = {<Login />} />
+            {/* Login */}
+            <Route path = "/register" element = {<Register />} />
           </Routes>
 
           <Footer />

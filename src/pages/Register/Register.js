@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
 import './Register.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth as ath } from '../../Firebase';
+
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null)
+  const navigate = useNavigate()
 
   const create = async (e) => {
     e.preventDefault();
 
     try {
-      const auth = getAuth();
+      const auth = ath
 
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      setError(false)
+      navigate('/login')
 
       console.log('User created:', user);
 
     } catch (error) {
+      setError('Error creating user')
       console.error('Error creating user:', error.message);
     }
   };
@@ -49,6 +56,7 @@ const Register = () => {
           />
         </div>
         <button onClick={create}>Register</button>
+        {error && <div className='error' style={{ color: 'red', justifyContent: 'center' }}>{error}</div>}
         <p className='register-register'>
           Already have an account?
           <Link to='/login'>

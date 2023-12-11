@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import "./Header.scss";
 import {Link} from 'react-router-dom';
 import Navbar from "../Navbar/Navbar";
+import { UserContext } from '../../pages/userContext';
+import Logout from '../../pages/logout/Logout';
 
 const Header = () => {
+  const user = useContext(UserContext)
   return (
     <header className='header text-white'>
       <div className='container'>
@@ -50,16 +53,25 @@ const Header = () => {
                 </li>
                 <li className='vert-line'></li>
                 <li>
-                  <Link to = "/register">
-                    <span className='top-link-itm-txt'>Register</span>
-                  </Link>
+                  {user ? (
+                    <Logout />
+                  ) : (
+                    <>
+                    <li>
+                    <Link to = "/register">
+                      <span className='top-link-itm-txt'>Register</span>
+                    </Link>
+                  </li>
+                  {/* <li className='vert-line'></li> */}
+                  <li>
+                    <Link to = "/login">
+                      <span className='top-link-itm-txt'>Log in</span>
+                    </Link>
+                  </li>
+                  </>
+                  )}
                 </li>
-                <li className='vert-line'></li>
-                <li>
-                  <Link to = "/login">
-                    <span className='top-link-itm-txt'>Log in</span>
-                  </Link>
-                </li>
+               
               </ul>
             </div>
           </div>

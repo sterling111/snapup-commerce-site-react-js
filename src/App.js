@@ -11,6 +11,7 @@ import store from "./store/store";
 import {Provider} from "react-redux";
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import Logout from './pages/logout/Logout';
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
             <Route path = "/login" element = {<Login />} />
             {/* Login */}
             <Route path = "/register" element = {<Register />} />
+            {/* Logout */}
+            <Route path = "/logout" element = {<Logout />} />
           </Routes>
 
           <Footer />

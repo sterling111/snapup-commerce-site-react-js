@@ -1,55 +1,63 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './Login.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { UserContext } from '../userContext';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null)
-  const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const user = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       const auth = getAuth();
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      setError(false)
-      navigate('/')
-
-      console.log('User logged in:', user);
+      await signInWithEmailAndPassword(auth, email, password);
+      setError(null); // Reset error state
+      navigate('/');
     } catch (error) {
-      setError('Error logging in:')
+      setError(`Error logging in: ${error.message}`);
       console.error('Error logging in:', error.message);
     }
   };
 
+  useEffect(() => {
+    if (user !== null) {
+      navigate('/logout');
+    }
+  }, [navigate, user]);
 
   return (
-    <div className='login'>
-      <div className='login-container'>
+    <div className="login">
+      <div className="login-container">
         <h1>Login</h1>
-        <div className='login-fields'>
+        <div className="login-fields">
           <input
-            type='email'
-            placeholder='Email Address'
+            type="email"
+            placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            type='password'
-            placeholder='Password'
+            type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button onClick={handleLogin}>Login</button>
-        {error && <div className='error' style={{color: 'red', justifyContent: 'center'}}>{error}</div>}
-        <p className='login-login'>
+        {error && (
+          <div className="error" style={{ color: 'red', justifyContent: 'center' }}>
+            {error}
+          </div>
+        )}
+        <p className="login-login">
           Do not have an account?
-          <Link to='/register'>
+          <Link to="/register">
             <span>Sign Up</span>
           </Link>
         </p>
@@ -59,4 +67,3 @@ const Login = () => {
 };
 
 export default Login;
-

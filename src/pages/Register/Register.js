@@ -16,7 +16,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const auth = ath
+      const auth = ath` `
 
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;

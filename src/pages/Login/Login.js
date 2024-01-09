@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import './Login.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { UserContext } from '../userContext';
+import { UserContext } from '../UserContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,7 +18,7 @@ const Login = () => {
       const auth = getAuth();
       await signInWithEmailAndPassword(auth, email, password);
       setError(null); // Reset error state
-      navigate('/');
+      navigate('/'); // Redirect to "/" after successful login
     } catch (error) {
       setError(`Error logging in: ${error.message}`);
       console.error('Error logging in:', error.message);
@@ -50,20 +50,28 @@ const Login = () => {
           />
         </div>
         <button onClick={handleLogin}>Login</button>
+        {user ? (
+          <div className="user-info">
+            <p>User information:</p>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
+          </div>
+        ) : (
+          <p className="login-login">
+            Do not have an account?
+            <Link to="/register">
+              <span>Sign Up</span>
+            </Link>
+          </p>
+        )}
         {error && (
           <div className="error" style={{ color: 'red', justifyContent: 'center' }}>
             {error}
           </div>
         )}
-        <p className="login-login">
-          Do not have an account?
-          <Link to="/register">
-            <span>Sign Up</span>
-          </Link>
-        </p>
       </div>
     </div>
   );
 };
 
 export default Login;
+

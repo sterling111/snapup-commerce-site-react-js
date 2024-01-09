@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import {useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
-import { UserContext } from '../userContext';
+import { UserContext } from '../UserContext';
 
 const Logout = () => {
   const user = useContext(UserContext);

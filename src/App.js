@@ -1,6 +1,6 @@
 import './App.scss';
 // react router v6
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
 // pages
 import {Home, CategoryProduct, ProductSingle, Cart, Search} from "./pages/index";
 // components
@@ -14,11 +14,16 @@ import Register from './pages/Register/Register';
 import Logout from './pages/logout/Logout';
 
 function App() {
+  // const location = useLocation()
+  // const hideHeaderPaths = ['/register', '/login']
+  // const showHeader = !hideHeaderPaths.includes(location.pathname)
   return (
     <div className="App">
       <Provider store = {store}>
         <BrowserRouter>
-          <Header />
+         {
+        //  showHeader &&  
+         <Header />}
           <Sidebar />
 
           <Routes>

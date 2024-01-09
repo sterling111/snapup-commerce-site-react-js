@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "./Navbar.scss";
-import {Link} from "react-router-dom";
+import {Link } from "react-router-dom";
 import { useSelector, useDispatch} from 'react-redux';
 import { setSidebarOn } from '../../store/sidebarSlice';
 import { getAllCategories } from '../../store/categorySlice';
@@ -18,6 +18,10 @@ const Navbar = () => {
     e.preventDefault();
     setSearchTerm(e.target.value);
   }
+
+  // const navigateHome = () => {
+  //   const navigate = 
+  // }
 
   useEffect(() => {
     dispatch(getCartTotal());
